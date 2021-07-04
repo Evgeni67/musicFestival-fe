@@ -1,0 +1,40 @@
+.theatre {
+  width: 90%;
+  max-width: 900px;
+  height: 550px;
+
+}
+.scroll {
+    margin:4px, 4px;
+    padding:4px;
+    width: 500px;
+    height: 110px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align:justify;
+    width:90% !important;
+    max-width:900px !important
+}
+.commentSectionRow{
+width:90%    
+}
+.backgroundImage {
+    position: absolute;
+    z-index: -10;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 100px;
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+  }
+  .theatreRow{
+      margin-top:100px !important;
+  }
+  .dot{
+      width:30px;
+      height:30px;
+      background-color:black;
+      margin-bottom: 30px;
+      border-radius: 50px;
+  }
