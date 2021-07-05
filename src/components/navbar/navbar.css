@@ -1,0 +1,27 @@
+.navbar {
+  background-color: #0f0f0f;
+  min-height: 100px;
+}
+.navLogo {
+  margin-top: -33px !important;
+  width: 160px !important;
+}
+.navRow{
+    margin-top: -20px !important;
+    width:350px !important
+}
+.navBtn {
+  background-color: #0f0f0f !important;
+  color: #a8136c !important;
+  border-radius: 10px;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  border: 1px solid #a8136c;
+  transition: 0.5s ease-in-out;
+  display: flex;
+  justify-content: center
+}
+.navBtn:hover {
+  box-shadow: 3px 3px 3px 3px, 0px 0.5em 0.7em #a8136c;
+}

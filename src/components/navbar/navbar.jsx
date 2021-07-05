@@ -9,8 +9,24 @@ class Navbar extends Component {
   render() {
     return (
       <>
-        <Row className="">
-          <Col> 1</Col> <Col> 4</Col> <Col> 4</Col>{" "}
+        <Row className="navbar d-flex justify-content-center">
+          <Row className="d-flex justify-content-center">
+            {" "}
+            <img src={logo} className="navLogo" />
+          </Row>{" "}
+            {" "}
+              <Row className = "navRow d-flex justify-content-between">
+                {" "}
+                <Col className="navBtn"lg={3} sm={3} xs={4}>
+                  Gallery
+                </Col>{" "}
+                <Col className="navBtn" lg={3} sm={3} xs={4}>
+                  Live
+                </Col>{" "}
+                <Col className="navBtn" lg={3} sm={3} xs={4}>
+                  About
+                </Col>{" "}
+              </Row>
         </Row>
       </>
     );
