@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { Row, Col, Container } from "react-bootstrap";
+import { Row, Container } from "react-bootstrap";
 import { BrowserRouter as Router, Link } from "react-router-dom";
-import axios from "axios";
 import "./login.css";
 import logo from "./logo.png";
 import { FcGoogle } from "react-icons/fc";
@@ -10,6 +9,7 @@ class Login extends Component {
     email: "",
     password: "",
     loggingIn: false,
+    register: false,
   };
   saveTokensLocally = (data1) => {
     console.log(data1);
@@ -17,12 +17,12 @@ class Login extends Component {
     console.log("TOKENS", data);
     localStorage.setItem("accessToken", data.accessToken);
     localStorage.setItem("refreshToken", data.refreshToken);
-    localStorage.setItem("username", this.state.name);
+    localStorage.setItem("username", this.state.email);
     this.setState({ logged: true });
-    this.setState({loggingIn:false})
+    this.setState({ loggingIn: false });
     // socket.emit("login", data1[1]);
     window.location = "/homePage";
-  }
+  };
   changeEmail = (e) => {
     this.setState({ email: e.currentTarget.value });
   };
@@ -32,10 +32,31 @@ class Login extends Component {
   changePassword = (e) => {
     this.setState({ password: e.target.value });
   };
+  register = async() => {
+    this.setState({ loading: true });
+    const url = process.env.REACT_APP_URL;
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: this.state.email,
+        password: this.state.password,
+        isAdmin:false,
+        online:false,
+        tokens:[]
+      }),
+    };
+    await fetch(url + "/profiles/register", requestOptions)
+      .then((response) => response.json())
+      .then((data) => this.setState({register:false}));
+    if (false) {
+    } else {
+    }
+  }
   login = async () => {
     this.setState({ loggingIn: true });
-    const url = process.env.REACT_APP_URL;
     this.setState({ loading: true });
+    const url = process.env.REACT_APP_URL;
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -45,10 +66,9 @@ class Login extends Component {
       }),
     };
     await fetch(url + "/profiles/login", requestOptions)
-    .then((response) => response.json())
-    .then((data) => this.saveTokensLocally(data));
+      .then((response) => response.json())
+      .then((data) => this.saveTokensLocally(data));
     if (false) {
-    
     } else {
     }
   };
@@ -64,37 +84,80 @@ class Login extends Component {
             <Row className="logoRow d-flex justify-content-center">
               <img src={logo} className="logo" />
             </Row>
-            <Row className="d-flex justify-content-center">
-              <input
-                className="emailLogin text-align-center shadow-lg"
-                type="text"
-                id="fname"
-                name="fname"
-                placeholder="Username"
-                onChange={(e) => this.changeEmail(e)}
-              />
-            </Row>
-            <Row className="d-flex justify-content-center">
+
+            {this.state.register ? (
+              <>
               {" "}
-              <input
-                className="passwordLogin text-align-center"
-                type="password"
-                id="fname"
-                name="fname"
-                placeholder="🔒*********🔒"
-                onChange={(e) => this.changePassword(e)}
-              />
-            </Row>
-            <Row className="loginBtnRow d-flex justify-content-center mt-3">
-              <button
-                className={
-                  this.state.loggingIn ? "loginBtnLoading" : "loginBtn"
-                }
-                onClick={() => this.login()}
-              >
-                {this.state.loggingIn ? "" : "Login"}{" "}
-              </button>
-            </Row>
+              <Row className="d-flex justify-content-center">
+                <input
+                  className="emailLogin text-align-center shadow-lg"
+                  type="text"
+                  id="fname"
+                  name="fname"
+                  placeholder="Username"
+                  onChange={(e) => this.changeEmail(e)}
+                />
+              </Row>
+              <Row className="d-flex justify-content-center">
+                {" "}
+                <input
+                  className="passwordLogin text-align-center"
+                  type="password"
+                  id="fname"
+                  name="fname"
+                  placeholder="🔒*********🔒"
+                  onChange={(e) => this.changePassword(e)}
+                />
+              </Row>
+              <Row className="d-flex justify-content-center">
+                {" "}
+                <input
+                  className="passwordLogin text-align-center"
+                  type="password"
+                  id="fname"
+                  name="fname"
+                  placeholder="🔒*********🔒"
+                  onChange={(e) => this.changePassword(e)}
+                />
+              </Row>
+              <Row className="loginBtnRow d-flex justify-content-center mt-3">
+                <button className="loginBtn" onClick={() => this.register()}>
+                  {this.state.loggingIn ? "" : "Register"}{" "}
+                </button>
+              </Row>{" "}
+            </>
+            ) : (
+              <>
+                {" "}
+                <Row className="d-flex justify-content-center">
+                  <input
+                    className="emailLogin text-align-center shadow-lg"
+                    type="text"
+                    id="fname"
+                    name="fname"
+                    placeholder="Username"
+                    onChange={(e) => this.changeEmail(e)}
+                  />
+                </Row>
+                <Row className="d-flex justify-content-center">
+                  {" "}
+                  <input
+                    className="passwordLogin text-align-center"
+                    type="password"
+                    id="fname"
+                    name="fname"
+                    placeholder="🔒*********🔒"
+                    onChange={(e) => this.changePassword(e)}
+                  />
+                </Row>
+                <Row className="loginBtnRow d-flex justify-content-center mt-3">
+                  <button className="loginBtn" onClick={() => this.login()}>
+                    {this.state.loggingIn ? "" : "Login"}{" "}
+                  </button>
+                </Row>{" "}
+              </>
+            )}
+
             <Row className="loginGoogleRow d-flex justify-content-center ">
               <FcGoogle className="googleIcon" />{" "}
               <p className="googleText">Login with Google </p>
@@ -108,8 +171,13 @@ class Login extends Component {
         <Row className="center">
           <Container className="loginRegisterContainer">
             <Row className="loginRegisterRow d-flex justify-content-center">
-              <p>Do not have an account? </p>{" "}
-              <p className="loginRegisterText">Register</p>
+              <p className="loginRegisterText1">Do not have an account? </p>{" "}
+              <p
+                className="loginRegisterText"
+                onClick={() => this.setState({ register: true })}
+              >
+                Register
+              </p>
             </Row>
           </Container>
         </Row>

@@ -127,3 +127,7 @@ background: linear-gradient(0deg, rgba(15,15,15,1) 39%, rgba(168,19,96,1) 100%) 
       display:flex !important;
       justify-content: center !important;
   }
+  .loginRegisterText1{
+    margin-bottom: 10px !important;
+    margin-top: 8px !important;
+  }

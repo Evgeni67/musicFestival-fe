@@ -2,39 +2,148 @@
   width: 90%;
   max-width: 900px;
   height: 550px;
-
 }
 .scroll {
-    margin:4px, 4px;
-    padding:4px;
-    width: 500px;
-    height: 110px;
-    overflow-x: hidden;
-    overflow-y: auto;
-    text-align:justify;
-    width:90% !important;
-    max-width:900px !important
+  margin: 4px, 4px;
+  padding: 4px;
+  width: 500px;
+  height: 300px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: justify;
+  width: 87.4% !important;
+  max-width: 900px !important;
+  background-color: #0f0f0f;
 }
-.commentSectionRow{
-width:90%    
+.scrollOtherVideos {
+  padding: 4px;
+  height: 930px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: justify;
+  background-color: #0f0f0f;
+}
+.commentSectionRow {
+  width: 90%;
 }
 .backgroundImage {
-    position: absolute;
-    z-index: -10;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 100px;
-    filter: blur(8px);
-    -webkit-filter: blur(8px);
-  }
-  .theatreRow{
-      margin-top:100px !important;
-  }
-  .dot{
-      width:30px;
-      height:30px;
-      background-color:black;
-      margin-bottom: 30px;
-      border-radius: 50px;
-  }
+  position: absolute;
+  z-index: -10;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 100px;
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+}
+.theatreRow {
+}
+.dot {
+  width: 40px !important;
+  height: 40px !important;
+  background-color: gray;
+  margin-bottom: 30px;
+  border-radius: 50px;
+  margin-left: 10px;
+}
+.detailsRow {
+  width: 87.4% !important;
+  max-width: 900px !important;
+  height: 77px !important;
+  background-color: #0f0f0f;
+}
+.detailsName {
+  color: white;
+  font-weight: 600;
+  font-size: 25px;
+  margin-top: 3px !important;
+}
+.view {
+  color: whitesmoke !important;
+  font-size: 25px;
+}
+
+.watchCol {
+  margin-top: 5px !important;
+  color: whitesmoke !important;
+  font-size: 20px;
+}
+.likeCol {
+  margin-top: 10px !important;
+  color: whitesmoke !important;
+  font-size: 15px;
+}
+.like {
+  color: whitesmoke !important;
+  font-size: 25px;
+}
+.dislike {
+  color: whitesmoke !important;
+  font-size: 25px;
+}
+.likesCount {
+  color: green;
+  font-size: 18px;
+}
+.dislikesCount {
+  color: red;
+  font-size: 18px;
+}
+.commentName {
+  color: white;
+  font-size: 20px;
+  margin-right: 10px;
+  font-weight: 700 !important;
+}
+.comment {
+  color: black !important;
+  background-color: darkgray;
+  border-radius: 5px 5px 5px 5px;
+  padding: 5px;
+  margin-top: 5px !important;
+}
+.commentInput {
+  border-radius: 15px 0px 0px 15px;
+  width: 70%;
+  height: 40px;
+  margin-top: 15px;
+  border: 1px solid #a8136c;
+  border-right: none !important;
+  text-align: center !important;
+  color:#A8136C !important;
+}
+.commentInputRow {
+  width: 87.4% !important;
+  max-width: 900px !important;
+  height: 77px !important;
+  background-color: gray;
+}
+.sendCommentBtn {
+  height: 40px;
+  border-radius: 0px 10px 10px 0px;
+  background-color: #0f0f0f;
+  color: #a8136c !important;
+  border:1px solid #a8136c;
+  border-left: none !important;
+  font-weight: 700;
+}
+
+.loader{
+    width:250px;
+    margin-top: 150px;
+}
+.loader2{
+    width:150px;
+    margin-top: 300px;
+}
+.picPreview{
+    width:180px
+}
+.previewName{
+    color:whitesmoke !important;
+    font-weight: 600;
+}
+.deleteSectionBtn{
+    color:red;
+    margin-bottom: 7px;
+}
