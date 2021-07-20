@@ -18,30 +18,82 @@ class homePage extends Component {
     picPreview: "",
     sectionsLoaded: false,
     currentLiveSection: {},
+    isLiked: false,
+    isDisliked: false,
   };
   componentDidMount = async () => {
-    this.setState({ sectionsLoaded: false })
+    this.setState({ sectionsLoaded: false });
     setTimeout(() => this.setState({ loaded: true }), 3000);
     console.log("data");
-  await this.getLiveSections()
-  this.setState({ sectionsLoaded: true })
+    await this.getLiveSections();
+    this.setState({ sectionsLoaded: true });
+    this.addView();
   };
-  addComment = async() => {
+  addView = async () => {
     const url = process.env.REACT_APP_URL;
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+    };
+    await fetch(
+      url + "/liveSections/addView/" + this.state.currentLiveSection._id,
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((data) => this.setState({ currentLiveSection: data })); //use socket here to send the new live to the people
+  };
+  addLike = async () => {
+    if (!this.state.isLiked) {
+      const url = process.env.REACT_APP_URL;
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      };
+      await fetch(
+        url + "/liveSections/addLike/" + this.state.currentLiveSection._id,
+        requestOptions
+      )
+        .then((response) => response.json())
+        .then((data) => this.setState({ currentLiveSection: data })); //use socket here to send the new live to the people
+      this.setState({ isLiked: true });
+    }
+  };
+  addDislike = async () => {
+    if (!this.state.isDisliked && !this.state.isLiked) {
+      const url = process.env.REACT_APP_URL;
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      };
+      await fetch(
+        url + "/liveSections/addDislike/" + this.state.currentLiveSection._id,
+        requestOptions
+      )
+        .then((response) => response.json())
+        .then((data) => this.setState({ currentLiveSection: data })); //use socket here to send the new live to the people
+    }
+    this.setState({ isDisliked: true });
+  };
+  addComment = async () => {
+    const url = process.env.REACT_APP_URL;
+
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-       text:this.state.currentComment,
-       user:localStorage.getItem("username")
+        text: this.state.currentComment,
+        user: localStorage.getItem("username"),
       }),
     };
-    await fetch(url + "/liveSections/addComment/" + this.state.currentLiveSection._id, requestOptions)
+    await fetch(
+      url + "/liveSections/addComment/" + this.state.currentLiveSection._id,
+      requestOptions
+    )
       .then((response) => response.json())
-      .then((data) => this.setState({currentLiveSection:data})); //use socket here to send the new live to the people
-      document.querySelector(".commentInput").value = ""
-  }
-  getLiveSections = async() => {
+      .then((data) => this.setState({ currentLiveSection: data })); //use socket here to send the new live to the people
+    document.querySelector(".commentInput").value = "";
+  };
+  getLiveSections = async () => {
     const url = process.env.REACT_APP_URL;
     const requestOptions = {
       method: "GET",
@@ -51,7 +103,7 @@ class homePage extends Component {
       .then((data) => this.setState({ liveSections: data })); //use socket here to send the new live to the people
     this.setState({ currentLiveSection: this.state.liveSections[0] });
     setTimeout(() => this.setState({ sectionsLoaded: true }), 3000);
-  }
+  };
   changeLiveUrl = (e) => {
     this.setState({ liveUrl: e.currentTarget.value });
     console.log(this.state.liveUrl);
@@ -77,7 +129,7 @@ class homePage extends Component {
     await fetch(url + "/liveSections/deleteLiveSection/" + id, requestOptions)
       .then((response) => response.json())
       .then((data) => console.log(data)); //use socket here to send the new live to the people
-      await this.getLiveSections()
+    await this.getLiveSections();
   };
   addLiveSection = async () => {
     console.log("wtf");
@@ -108,7 +160,7 @@ class homePage extends Component {
         />
 
         <Row className="theatreRow d-flex justify-content-center">
-          <Col sm={2}></Col>
+          <Col sm={1}></Col>
           <Col sm={8} xs={12}>
             {this.state.sectionsLoaded ? (
               <>
@@ -131,11 +183,17 @@ class homePage extends Component {
 
                   <Row className="detailsRow d-flex justify-content-center">
                     <Col className="likeCol">
-                      <AiFillLike className="like" />
+                      <AiFillLike
+                        className="like"
+                        onClick={() => this.addLike()}
+                      />
                       <h className="likesCount">
                         {this.state.currentLiveSection.likes}{" "}
                       </h>
-                      <AiFillDislike className="dislike" />
+                      <AiFillDislike
+                        className="dislike"
+                        onClick={() => this.addDislike()}
+                      />
                       <h className="dislikesCount">
                         {this.state.currentLiveSection.dislikes}{" "}
                       </h>
@@ -154,16 +212,20 @@ class homePage extends Component {
                     ) : (
                       <>
                         {" "}
-                        {this.state.currentLiveSection.comments.map(comment => (<Row>
-                          {" "}
-                          <h className="dot" />
-                          <Col>
-                            <text className="commentName">{comment.user}</text>
-                            <text className="comment">{comment.text}</text>
-                          </Col>
-                        </Row>))}
-                        
-                       
+                        {this.state.currentLiveSection.comments.map(
+                          (comment) => (
+                            <Row>
+                              {" "}
+                              <h className="dot" />
+                              <Col>
+                                <text className="commentName">
+                                  {comment.user}
+                                </text>
+                                <text className="comment">{comment.text}</text>
+                              </Col>
+                            </Row>
+                          )
+                        )}
                       </>
                     )}
                   </Container>
@@ -178,7 +240,12 @@ class homePage extends Component {
                         placeholder="  Type your comment here"
                         onChange={(e) => this.changeCurrentComment(e)}
                       />
-                      <button className="sendCommentBtn" onClick = {()=>this.addComment()}>Submit </button>
+                      <button
+                        className="sendCommentBtn"
+                        onClick={() => this.addComment()}
+                      >
+                        Submit{" "}
+                      </button>
                     </Col>
                   </Row>
                 </Row>{" "}
@@ -190,18 +257,19 @@ class homePage extends Component {
           <Col sm={2} xs={12}>
             {" "}
             <button
+              className="addLiveSection"
               onClick={() => this.setState({ showAddSectionModal: true })}
             >
               Add Live Section
             </button>
             <Row className="d-flex justify-content-center">
-              <Container className="scrollOtherVideos">
+              <Container className="scrollOtherVideos ">
                 {this.state.sectionsLoaded ? (
                   <>
                     {this.state.liveSections.map((section) => (
                       <>
                         <Row className="previewName d-flex justify-content-center">
-                          <Col></Col> <Col>{section.performerName} </Col>{" "}
+                          <Col></Col> <Col className = "performerNameSideSection">{section.performerName} </Col>{" "}
                           <Col>
                             <ImBin
                               className="deleteSectionBtn"
@@ -270,7 +338,7 @@ class homePage extends Component {
           </Modal.Body>
           <Modal.Footer>
             <button onClick={() => this.handleClose()}>Close</button>
-            <button variant="primary" onClick={() => this.addLiveSection()}>
+            <button className="primary" onClick={() => this.addLiveSection()}>
               Add
             </button>
           </Modal.Footer>

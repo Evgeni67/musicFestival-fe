@@ -3,6 +3,7 @@ import "./App.css";
 import Login from "./components/login/loginPage";
 import Navbar from "./components/navbar/navbar";
 import HomePage from "./components/home/homePage";
+import Footer from "./components/footer/footer"
 import "bootstrap/dist/css/bootstrap.css";
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
@@ -22,6 +23,7 @@ class App extends Component {
             {" "}
             <HomePage />{" "}
           </Route>
+          <Footer/>
         </Router>
       </div>
     );

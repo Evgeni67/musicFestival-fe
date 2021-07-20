@@ -1,0 +1,80 @@
+.footerContainer {
+  background-color: #171717;
+}
+.logoPic {
+  width: 180px;
+  height: 180px;
+  margin-top: -19px;
+  margin-left: 6px;
+  margin-bottom: -25px;
+}
+.modalHeading {
+  background-color: #171717;
+}
+.inputBody {
+  background-color: #171717;
+}
+.logoRow {
+  margin-bottom: -30px;
+  margin-top: -25px;
+}
+.modal-content {
+  border-radius: 20px !important;
+  border: 1px solid #a8136c;
+}
+.modalLogo {
+  width: 55%;
+}
+.inputBody {
+  border-radius: 20px !important;
+  box-shadow: 2px, 2px, 2px, 2px #a8136c;
+}
+
+.question1 {
+  color: #ffffef;
+  font-size: 23px;
+  margin-top: 30px;
+  z-index: 10;
+}
+.weWork {
+  text-align: center !important;
+}
+.icon {
+  color: #a8136c;
+  font-size: 55px !important;
+  margin-right: 15px;
+  margin-left: 15px;
+}
+.iconCol {
+  margin-top: -15px;
+}
+.topBorder {
+  border-top: 1px solid #a8136c;
+  margin-top: 30px;
+  color: #a8136c;
+  font-size: 35px;
+}
+.topBorder1 {
+  border-top: 1px solid #a8136c;
+  margin-top: 30px;
+  color: #a8136c;
+  font-size: 35px;
+  margin-left: 35px;
+}
+@media only screen and (max-width: 600px) {
+  .topBorder1,
+  .topBorder {
+    font-size: 15px;
+  }
+  .icon {
+    color: #a8136c;
+    font-size: 30px !important;
+    margin-right: 0px;
+    margin-left: 0px;
+    margin-top: 10px;
+  }
+  .logoPic {
+    width: 125px;
+    height: 125px;
+  }
+}
